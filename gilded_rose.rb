@@ -29,15 +29,15 @@ def decrease_sellin(item)
 end
 
 def modifier(item)
-  case item.name
-  when Sulfuras
-    sulfuras_modifier(item)
-  when Backstage
-    backstage_modifier(item)
-  when Aged_Brie
-    aged_brie_modifier(item)
-  when Conjured
-    conjured_modifier(item)
+  modifier = {
+    Sulfuras => :sulfuras_modifier,
+    Backstage => :backstage_modifier,
+    Aged_Brie => :aged_brie_modifier,
+    Conjured => :conjured_modifier
+  }[item.name]
+
+  if modifier
+    send(modifier, item)
   else
     default_modifier(item)
   end
